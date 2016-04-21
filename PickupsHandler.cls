@@ -791,98 +791,92 @@ Private Sub dodaj_pickup_gdy_zakladka_duns_jest_aktywna(ByRef r As Range)
 
 
     If ActiveSheet.Name = MASTER_SHEET_NAME Then
-        
-        If Trim(Cells(ActiveCell.Row, Int(WizardMain.pn)).Value) = "" Then
-            MsgBox "nie mozna dodac zamowienia dla pustej wartosci part #"
-        Else
-        
 
-                ' current_form.ListBoxPNsFromThisDuns
-                czy_moge_dodac_nowy_pickup = True
-                czy_chociaz_raz_pickup_zostal_dodany = False
-                ' miejsce puste ustawia sie na referencji r
-                czy_moge_dodac_nowy_pickup = zweryfikuj_arkusz_pickups_i_ustaw_na_pierwsze_puste_miejsce(r)
-                czy_moge_dodac_nowy_pickup = zweryfikuj_poprawnosc_dat_w_formie()
-                
-                
-                ' olewam ta logike - niech dziala tylko przy labelce del confa
-                ' args: Variant & Range
-                'sprawdz_del_conf_del_date_danego_pusa CStr(current_form.DTPickerDUNS_DeliveryDate.Value), _
-                '    Cells(ActiveCell.Row, Int(WizardMain.Delivery_confirmation))
-                
-                silowy_duplikat_nazwy_pusa = False
-                silowy_duplikat_nazwy_pusa = sprawdz_czy_nie_ma_takiego_pusa_juz()
-                czy_moge_dodac_nowy_pickup = Not silowy_duplikat_nazwy_pusa
-                    
-                If czy_moge_dodac_nowy_pickup Then
-                    For x = 0 To current_form.ListBoxPNsFromThisDuns.ListCount - 1
-   
-                            'r.Parent.Unprotect 123
-                            ' tutaj logika share - zeby ustawic pozycje na arkuszu pickups
-                            If ustaw_tylko_na_pierwsze_puste_miejsce(r) Then
-                            
-                                If IsNumeric(current_form.ListBoxCurrPusQty.List(x)) Then
-                                    If CLng(current_form.ListBoxCurrPusQty.List(x)) > 0 Then
-                                    
-                                        czy_chociaz_raz_pickup_zostal_dodany = True
-                                    
-                                        r = CStr(current_form.ListBoxPNsFromThisDuns.List(x))
-                                        ' ThisWorkbook.Save
-                                        arr = Split(r, ",")
-                                        
-                                        ' dane z splitu
-                                        r.Offset(0, WizardMain.O_PN - WizardMain.O_INDX) = arr(LBound(arr))
-                                        r.Offset(0, WizardMain.O_DUNS - WizardMain.O_INDX) = arr(LBound(arr) + 1)
-                                        r.Offset(0, WizardMain.O_FUP_code - WizardMain.O_INDX) = arr(UBound(arr))
-                                        
-                                        ' pickup details
-                                        r.Offset(0, WizardMain.O_Pick_up_date - WizardMain.O_INDX) = current_form.DTPickerDUNS_PickUpDate.Value
-                                        r.Offset(0, WizardMain.O_Delivery_Date - WizardMain.O_INDX) = current_form.DTPickerDUNS_DeliveryDate.Value
-                                        If IsNumeric(current_form.ListBoxCurrPusQty.List(x)) Then
-                                            r.Offset(0, WizardMain.O_Pick_up_Qty - WizardMain.O_INDX) = CLng(current_form.ListBoxCurrPusQty.List(x))
-                                        Else
-                                            MsgBox "FATAL ERROR! Nigdy nie powinien przypisac zerowego pusa!" & Chr(10) & _
-                                                "dodaj pickup gdy zakladka duns jest aktywna - klasa pickups handler!"
-                                            
-                                            ' r.Offset(0, WizardMain.O_Pick_up_Qty - WizardMain.O_INDX) = CLng(0)
-                                        End If
-                                        
-                                        
-                                        If Trim(current_form.TextBoxMaskForPusNumber.Value) = "" Then
-                                            r.Offset(0, WizardMain.O_PUS_Number - WizardMain.O_INDX) = "NULL"
-                                        Else
-                                            r.Offset(0, WizardMain.O_PUS_Number - WizardMain.O_INDX) = CStr(current_form.TextBoxMaskForPusNumber)
-                                        End If
-                                    Else
-                                        czy_pojawily_sie_zerowe_badz_ujemne_pusy = True
-                                    End If
-                                End If
-                            Else
-                            
-                                ' tutaj jesli pus jest duzy moze sie zdarzyc fluktuacji tylko czesci dodania danych
-                                ' trzeba dotestowac!
-                                MsgBox "synchronizacja uzytkownikow nie przebiegla pomyslnie - nie dodano nowego PUSa!"
-                                Exit Sub
-                            End If
-                            
-                            'r.Parent.Protect 123
-                    Next x
-                    
-                    
-                    If czy_chociaz_raz_pickup_zostal_dodany Then
-                        If czy_pojawily_sie_zerowe_badz_ujemne_pusy Then
-                            MsgBox "Dodane zostaly tylko pusy z ilosciami wiekszymi od zera!"
-                        Else
-                            MsgBox "Wszystko dodane!"
-                        End If
-                    Else
-                        MsgBox "zaden pickup nie zostal dodany - warunki nie zostaly spelnione - upewnij sie ze lista ma sens"
-                    End If
-                Else
-                    MsgBox "zaden pickup nie zostal dodany - duplikat nazwy pusa prawdopodobnie jest problemem"
-                End If
+             ' current_form.ListBoxPNsFromThisDuns
+             czy_moge_dodac_nowy_pickup = True
+             czy_chociaz_raz_pickup_zostal_dodany = False
+             ' miejsce puste ustawia sie na referencji r
+             czy_moge_dodac_nowy_pickup = zweryfikuj_arkusz_pickups_i_ustaw_na_pierwsze_puste_miejsce(r)
+             czy_moge_dodac_nowy_pickup = zweryfikuj_poprawnosc_dat_w_formie()
+             
+             
+             ' olewam ta logike - niech dziala tylko przy labelce del confa
+             ' args: Variant & Range
+             'sprawdz_del_conf_del_date_danego_pusa CStr(current_form.DTPickerDUNS_DeliveryDate.Value), _
+             '    Cells(ActiveCell.Row, Int(WizardMain.Delivery_confirmation))
+             
+             silowy_duplikat_nazwy_pusa = False
+             silowy_duplikat_nazwy_pusa = sprawdz_czy_nie_ma_takiego_pusa_juz()
+             czy_moge_dodac_nowy_pickup = Not silowy_duplikat_nazwy_pusa
+                 
+             If czy_moge_dodac_nowy_pickup Then
+                 For x = 0 To current_form.ListBoxPNsFromThisDuns.ListCount - 1
+
+                         'r.Parent.Unprotect 123
+                         ' tutaj logika share - zeby ustawic pozycje na arkuszu pickups
+                         If ustaw_tylko_na_pierwsze_puste_miejsce(r) Then
+                         
+                             If IsNumeric(current_form.ListBoxCurrPusQty.List(x)) Then
+                                 If CLng(current_form.ListBoxCurrPusQty.List(x)) > 0 Then
+                                 
+                                     czy_chociaz_raz_pickup_zostal_dodany = True
+                                 
+                                     r = CStr(current_form.ListBoxPNsFromThisDuns.List(x))
+                                     ' ThisWorkbook.Save
+                                     arr = Split(r, ",")
+                                     
+                                     ' dane z splitu
+                                     r.Offset(0, WizardMain.O_PN - WizardMain.O_INDX) = arr(LBound(arr))
+                                     r.Offset(0, WizardMain.O_DUNS - WizardMain.O_INDX) = arr(LBound(arr) + 1)
+                                     r.Offset(0, WizardMain.O_FUP_code - WizardMain.O_INDX) = arr(UBound(arr))
+                                     
+                                     ' pickup details
+                                     r.Offset(0, WizardMain.O_Pick_up_date - WizardMain.O_INDX) = current_form.DTPickerDUNS_PickUpDate.Value
+                                     r.Offset(0, WizardMain.O_Delivery_Date - WizardMain.O_INDX) = current_form.DTPickerDUNS_DeliveryDate.Value
+                                     If IsNumeric(current_form.ListBoxCurrPusQty.List(x)) Then
+                                         r.Offset(0, WizardMain.O_Pick_up_Qty - WizardMain.O_INDX) = CLng(current_form.ListBoxCurrPusQty.List(x))
+                                     Else
+                                         MsgBox "FATAL ERROR! Nigdy nie powinien przypisac zerowego pusa!" & Chr(10) & _
+                                             "dodaj pickup gdy zakladka duns jest aktywna - klasa pickups handler!"
+                                         
+                                         ' r.Offset(0, WizardMain.O_Pick_up_Qty - WizardMain.O_INDX) = CLng(0)
+                                     End If
+                                     
+                                     
+                                     If Trim(current_form.TextBoxMaskForPusNumber.Value) = "" Then
+                                         r.Offset(0, WizardMain.O_PUS_Number - WizardMain.O_INDX) = "NULL"
+                                     Else
+                                         r.Offset(0, WizardMain.O_PUS_Number - WizardMain.O_INDX) = CStr(current_form.TextBoxMaskForPusNumber)
+                                     End If
+                                 Else
+                                     czy_pojawily_sie_zerowe_badz_ujemne_pusy = True
+                                 End If
+                             End If
+                         Else
+                         
+                             ' tutaj jesli pus jest duzy moze sie zdarzyc fluktuacji tylko czesci dodania danych
+                             ' trzeba dotestowac!
+                             MsgBox "synchronizacja uzytkownikow nie przebiegla pomyslnie - nie dodano nowego PUSa!"
+                             Exit Sub
+                         End If
+                         
+                         'r.Parent.Protect 123
+                 Next x
+                 
+                 
+                 If czy_chociaz_raz_pickup_zostal_dodany Then
+                     If czy_pojawily_sie_zerowe_badz_ujemne_pusy Then
+                         MsgBox "Dodane zostaly tylko pusy z ilosciami wiekszymi od zera!"
+                     Else
+                         MsgBox "Wszystko dodane!"
+                     End If
+                 Else
+                     MsgBox "zaden pickup nie zostal dodany - warunki nie zostaly spelnione - upewnij sie ze lista ma sens"
+                 End If
+             Else
+                 MsgBox "zaden pickup nie zostal dodany - duplikat nazwy pusa prawdopodobnie jest problemem"
+             End If
             
-        End If
     Else
         MsgBox "nie mozesz przejsc na ten arkusz, gdy aktywny jest formularz dodawania pickupow z poziomu numeru DUNS!"
         ThisWorkbook.Sheets(MASTER_SHEET_NAME).Activate
@@ -1040,7 +1034,25 @@ Private Function ustaw_tylko_na_pierwsze_puste_miejsce(ByRef r As Range) As Bool
         a = vbYes
         
         ' gdzie zaczynamy
+        
         ' G_STEP_BETWEEN_PARALELL_USERS
+        
+        Users = ThisWorkbook.UserStatus
+        ' prewencyjne usuwanie starych userow
+        ' ============================================================
+        ' ============================================================
+        For x = 1 To UBound(ThisWorkbook.UserStatus, 1)
+            If IsDate(Users(x, 2)) Then
+                If CDate(Users(x, 2)) < CDate(Now - 1) Then
+                    ThisWorkbook.RemoveUser (x)
+                    x = 0
+                End If
+            End If
+        Next x
+        ' ============================================================
+        ' ============================================================
+        
+        
         gdzie_zaczynamy = 1
         Users = ThisWorkbook.UserStatus
         
@@ -1399,14 +1411,26 @@ Private Sub jenny_init_for_dodaj_pus()
         '    If sprawdz_czy_dane_w_wizardzie_sa_w_linii_z_danymi_w_jenny() Then
         
         
-                tmp_for_duns = jr.item(2, 2)
+                tmp_for_duns = CLng(CStr(jr.item(2, 2)))
                 With current_form
                 
-                    .LabelDUNS.Caption = "DUNS: " & tmp_for_duns
+                    .LabelDUNS.Caption = "DUNS: " & CStr(tmp_for_duns)
                     .LabelSuppName.Caption = "SUPPLIER NAME: " & jr.item(1, 2)
                     .TextBoxMaskForPusNumber.Value = jr.item(7, 2)
-                    .DTPickerDUNS_PickUpDate.Value = CDate(jr.item(12, 2))
-                    .DTPickerDUNS_DeliveryDate.Value = CDate(jr.item(16, 2))
+                    
+                    If IsDate(Trim(jr.item(12, 2))) Then
+                        .DTPickerDUNS_PickUpDate.Value = CDate(jr.item(12, 2))
+                    Else
+                        MsgBox "Pickup Date w FMA Room Request nie ma poprawnego formatu yyyy-mm-dd"
+                        End
+                    End If
+                    
+                    If IsDate(jr.item(16, 2)) Then
+                        .DTPickerDUNS_DeliveryDate.Value = CDate(jr.item(16, 2))
+                    Else
+                        MsgBox "Delivery Date w FMA Room Request nie ma poprawnego formatu yyyy-mm-dd"
+                        End
+                    End If
                     
                     
                     .ListBoxPNsFromThisDuns.Clear
@@ -1432,7 +1456,7 @@ End Sub
 Private Function sprawdz_czy_dane_w_wizardzie_sa_w_linii_z_danymi_w_jenny() As Boolean
     sprawdz_czy_dane_w_wizardzie_sa_w_linii_z_danymi_w_jenny = False
     
-    If CStr(Cells(ActiveCell.Row, WizardMain.duns)) = CStr(jr.item(2, 2)) Then
+    If CLng(CStr(Cells(ActiveCell.Row, WizardMain.duns))) = CLng(CStr(jr.item(2, 2))) Then
         sprawdz_czy_dane_w_wizardzie_sa_w_linii_z_danymi_w_jenny = True
     End If
 End Function
@@ -1446,13 +1470,15 @@ Private Function czy_mozna_dodac_tego_pusa_czy_jest_taki_pn() As Range
     Do
         ' znajdz pierwszy lepszy pn
         ' znalazl sie
-        If jr.item(2, 6) = r Then
-            ' pn' ow nie bede sprawdzal
-            Set czy_mozna_dodac_tego_pusa_czy_jest_taki_pn = r
-            Exit Function
-            ' rola tej logiki dalej bedzie lezala w pobieraniu danych tylko i wylacznie z wizarda
-            ' informacjami z jenny tylko sie posilkujemy i nic wiecej - nic na sile
-            ' jesli dane nie beda w lini najwyzej poleci jakis msgbox i nic wiecej
+        If IsNumeric(jr.item(2, 6)) And IsNumeric(r) Then
+            If CLng(CStr(jr.item(2, 6))) = CLng(CStr(r)) Then
+                ' pn' ow nie bede sprawdzal
+                Set czy_mozna_dodac_tego_pusa_czy_jest_taki_pn = r
+                Exit Function
+                ' rola tej logiki dalej bedzie lezala w pobieraniu danych tylko i wylacznie z wizarda
+                ' informacjami z jenny tylko sie posilkujemy i nic wiecej - nic na sile
+                ' jesli dane nie beda w lini najwyzej poleci jakis msgbox i nic wiecej
+            End If
         End If
         Set r = r.Offset(1, 0)
     Loop Until Trim(r) = ""
@@ -1573,8 +1599,8 @@ Private Sub wypelnij_listboxy_z_jenny(tmp_for_duns)
                 "," & CStr(jr.item(28, 2))
               
               
-            liczba_orderu = -1
-            liczba_juz_zrobionych_pusow = -1
+            liczba_orderu = "jenny nie zaciaga tych danych"
+            liczba_juz_zrobionych_pusow = "jenny nie zaciaga tych danych"
             liczba_do_zrobienia = wr.Offset(0, 1)
            
             If True Then

@@ -69,23 +69,7 @@ Private Sub ComboBoxSourceDUNS_Change()
     End If
 End Sub
 
-Private Sub DTPickerDUNS_DeliveryDate_Change()
 
-    If ThisWorkbook.Sheets(CONFIG_SHEET_NAME).Range("form_activatedd") = 1 Then
-    
-        ' Me.DTPickerPN_DeliveryDate.Value = Me.DTPickerDUNS_DeliveryDate.Value
-        pickups_handler.adjust_content_if_selection_changed
-    End If
-End Sub
-
-Private Sub DTPickerDUNS_PickUpDate_Change()
-
-    If ThisWorkbook.Sheets(CONFIG_SHEET_NAME).Range("form_activatedd") = 1 Then
-        
-        ' Me.DTPickerPN_PickUpDate = Me.DTPickerDUNS_PickUpDate
-        pickups_handler.adjust_content_if_selection_changed
-    End If
-End Sub
 
 Private Sub ListBoxCurrPusQty_Click()
 

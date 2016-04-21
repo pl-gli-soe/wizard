@@ -77,7 +77,7 @@ Public Enum E_JAKI_FORM
 End Enum
 
 
-Public Enum E_ORDERS
+Public Enum E_PUS_SH
     O_INDX = 1
     O_PN
     O_DUNS

@@ -49,6 +49,20 @@ Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     Loop Until r.Row > WizardMain.POLOWA_CAPACITY_ARKUSZA
     
     
+    Users = ThisWorkbook.UserStatus
+    ' prewencyjne usuwanie starych userow
+    ' ============================================================
+    ' ============================================================
+    For x = 1 To UBound(ThisWorkbook.UserStatus, 1)
+        If IsDate(Users(x, 2)) Then
+            If CDate(Users(x, 2)) < CDate(Now - 1) Then
+                ThisWorkbook.RemoveUser (x)
+                x = 0
+            End If
+        End If
+    Next x
+    ' ============================================================
+    ' ============================================================
     
     If USERS_LIMIT < UBound(ThisWorkbook.UserStatus, 1) Then
         ' users_status_usun_moje_stare_instancje CStr(Application.UserName)
@@ -59,7 +73,7 @@ Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     ' gdzie zaczynamy
     ' G_STEP_BETWEEN_PARALELL_USERS
     gdzie_zaczynamy = 1
-    Users = ThisWorkbook.UserStatus
+    
     For x = 1 To UBound(ThisWorkbook.UserStatus, 1)
         If CStr(Application.UserName) = CStr(Users(x, 1)) Then
             gdzie_zaczynamy = (G_STEP_BETWEEN_PARALELL_USERS * (x - 1)) + 1
