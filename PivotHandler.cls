@@ -7,6 +7,24 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+' FORREST SOFTWARE
+' Copyright (c) 2016 Mateusz Forrest Milewski
+'
+' Permission is hereby granted, free of charge,
+' to any person obtaining a copy of this software and associated documentation files (the "Software"),
+' to deal in the Software without restriction, including without limitation the rights to
+' use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+' and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+'
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+' IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+' WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 Private pivot_table_cache As PivotCache
 Private pivot_table As PivotTable
 
@@ -46,32 +64,32 @@ Public Sub init_(ByRef w As Workbook, sh As Worksheet, e As E_PIVOTS, md As Date
     
     
     If e = E_PIVOT_COUNTRY_CODE Then
-        pivot_sh.Range("B3") = "COUNTRY CODE"
-        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("B4"))
+        pivot_sh.Range("A3") = "COUNTRY CODE"
+        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("A4"))
         
     ElseIf e = E_PIVOT_FUP_CODE Then
-        pivot_sh.Range("E3") = "FOLLOW UP CODE"
-        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("E4"))
+        pivot_sh.Range("F3") = "FOLLOW UP CODE"
+        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("F4"))
         
         
     ' =============================================================================================
     ' =============================================================================================
     ElseIf e = E_PIVOT_INTRANSIT_TODAY Then
-        pivot_sh.Range("H3") = "INTRANSIT TODAY: " & CStr(today_date)
-        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("H4"))
+        pivot_sh.Range("K3") = "INTRANSIT TODAY: " & CStr(today_date)
+        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("K4"))
         
     ' =============================================================================================
         
     ElseIf e = E_PIVOT_INTRANSIT_MRD Then
     
-        If pivot_sh.Range("H3") = "" Then
-            Set r = pivot_sh.Range("H3")
+        If pivot_sh.Range("K3") = "" Then
+            Set r = pivot_sh.Range("K3")
             r = "INTRANSIT MRD: " & CStr(mrd_date)
-        ElseIf pivot_sh.Range("H3").End(xlDown).Offset(4, 0) = "" Then
-            Set r = pivot_sh.Range("H3").End(xlDown).Offset(4, 0)
+        ElseIf pivot_sh.Range("K3").End(xlDown).Offset(4, 0) = "" Then
+            Set r = pivot_sh.Range("K3").End(xlDown).Offset(4, 0)
             r = "INTRANSIT MRD: " & CStr(mrd_date)
         Else
-            Set r = pivot_sh.Range("H3").End(xlDown).End(xlDown).End(xlDown).Offset(4, 0)
+            Set r = pivot_sh.Range("K3").End(xlDown).End(xlDown).End(xlDown).Offset(4, 0)
             r = "INTRANSIT MRD: " & CStr(mrd_date)
         End If
         Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, r.Offset(1, 0))
@@ -79,15 +97,15 @@ Public Sub init_(ByRef w As Workbook, sh As Worksheet, e As E_PIVOTS, md As Date
         
         
     ElseIf e = E_PIVOT_INTRANSIT_CUSTOM_DATE Then
-        If pivot_sh.Range("H3") = "" Then
-            Set r = pivot_sh.Range("H3")
+        If pivot_sh.Range("K3") = "" Then
+            Set r = pivot_sh.Range("K3")
             r = "INTRANSIT CUSTOM DATE: " & CStr(custom_date)
             
-        ElseIf pivot_sh.Range("H3").End(xlDown).Offset(4, 0) = "" Then
-            Set r = pivot_sh.Range("H3").End(xlDown).Offset(4, 0)
+        ElseIf pivot_sh.Range("K3").End(xlDown).Offset(4, 0) = "" Then
+            Set r = pivot_sh.Range("K3").End(xlDown).Offset(4, 0)
             r = "INTRANSIT CUSTOM DATE: " & CStr(custom_date)
         Else
-            Set r = pivot_sh.Range("H3").End(xlDown).End(xlDown).End(xlDown).Offset(4, 0)
+            Set r = pivot_sh.Range("K3").End(xlDown).End(xlDown).End(xlDown).Offset(4, 0)
             r = "INTRANSIT CUSTOM DATE: " & CStr(custom_date)
         End If
         Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, r.Offset(1, 0))
@@ -97,12 +115,12 @@ Public Sub init_(ByRef w As Workbook, sh As Worksheet, e As E_PIVOTS, md As Date
     ' =============================================================================================
         
     ElseIf e = E_PIVOT_PPAP_STATUS Then
-        pivot_sh.Range("K3") = "PPAP_STATUS"
-        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("K4"))
+        pivot_sh.Range("P3") = "PPAP_STATUS"
+        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("P4"))
         
     ElseIf e = E_PIVOT_RESP Then
-        pivot_sh.Range("N3") = "RESP"
-        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("N4"))
+        pivot_sh.Range("U3") = "RESP"
+        Set pivot_table = pivot_sh.PivotTables.Add(pivot_table_cache, pivot_sh.Range("U4"))
     End If
     
     
@@ -137,20 +155,24 @@ Public Sub no_to_rysuj(e As E_PIVOTS)
     
     With pivot_table
     
-        .PivotFields("RESP").Orientation = xlRowField
+        .RowAxisLayout xlTabularRow
+        .RepeatAllLabels xlRepeatLabels
+    
+        .PivotFields("RESP").Orientation = xlPageField
         .PivotFields("RESP").Position = 1
+        
     
         If tmp_txt <> "RESP" Then
         
             .PivotFields(tmp_txt).Orientation = xlRowField
-            .PivotFields(tmp_txt).Position = 2
+            .PivotFields(tmp_txt).Position = 1
             .PivotFields("DEL_CONF").Orientation = xlRowField
-            .PivotFields("DEL_CONF").Position = 3
+            .PivotFields("DEL_CONF").Position = 2
             
         Else
             
             .PivotFields("DEL_CONF").Orientation = xlRowField
-            .PivotFields("DEL_CONF").Position = 2
+            .PivotFields("DEL_CONF").Position = 1
             
         End If
         

@@ -13,6 +13,24 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+' FORREST SOFTWARE
+' Copyright (c) 2016 Mateusz Forrest Milewski
+'
+' Permission is hereby granted, free of charge,
+' to any person obtaining a copy of this software and associated documentation files (the "Software"),
+' to deal in the Software without restriction, including without limitation the rights to
+' use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+' and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+'
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+' IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+' WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     hide
@@ -22,9 +40,9 @@ Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     Set r = psh.Range("a2")
     
     linia_txtu = ""
-    For x = 0 To Me.ListBoxIndx.ListCount - 1
-        If Me.ListBoxIndx.Selected(x) = True Then
-            linia_txtu = Me.ListBoxIndx.List(x)
+    For x = 0 To Me.ListBoxINDX.ListCount - 1
+        If Me.ListBoxINDX.Selected(x) = True Then
+            linia_txtu = Me.ListBoxINDX.List(x)
             Exit For
         End If
     Next x
@@ -49,6 +67,20 @@ Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     Loop Until r.Row > WizardMain.POLOWA_CAPACITY_ARKUSZA
     
     
+    Users = ThisWorkbook.UserStatus
+    ' prewencyjne usuwanie starych userow
+    ' ============================================================
+    ' ============================================================
+    For x = 1 To UBound(ThisWorkbook.UserStatus, 1)
+        If IsDate(Users(x, 2)) Then
+            If CDate(Users(x, 2)) < CDate(Now - 1) Then
+                ThisWorkbook.RemoveUser (x)
+                x = 0
+            End If
+        End If
+    Next x
+    ' ============================================================
+    ' ============================================================
     
     If USERS_LIMIT < UBound(ThisWorkbook.UserStatus, 1) Then
         ' users_status_usun_moje_stare_instancje CStr(Application.UserName)
@@ -59,7 +91,7 @@ Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     ' gdzie zaczynamy
     ' G_STEP_BETWEEN_PARALELL_USERS
     gdzie_zaczynamy = 1
-    Users = ThisWorkbook.UserStatus
+    
     For x = 1 To UBound(ThisWorkbook.UserStatus, 1)
         If CStr(Application.UserName) = CStr(Users(x, 1)) Then
             gdzie_zaczynamy = (G_STEP_BETWEEN_PARALELL_USERS * (x - 1)) + 1
@@ -106,7 +138,7 @@ Private Sub TextBoxPtrn_Change()
     Set msh = ThisWorkbook.Sheets(MASTER_SHEET_NAME)
     Set r = msh.Cells(2, WizardMain.pn)
     
-    Me.ListBoxIndx.Clear
+    Me.ListBoxINDX.Clear
     
     Do
         'If Me.ListBoxIndx.ListCount > 0 Then
@@ -119,7 +151,7 @@ Private Sub TextBoxPtrn_Change()
                         
                     If (tmp_txt Like "*" & CStr(Me.TextBoxPtrn) & "*") Or CStr(Me.TextBoxPtrn) = "" Then
                 
-                        Me.ListBoxIndx.AddItem tmp_txt
+                        Me.ListBoxINDX.AddItem tmp_txt
                     End If
             End If
         ' End If
