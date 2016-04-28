@@ -28,6 +28,16 @@ Attribute VB_Name = "EnumModule"
 ' jednak celem dla formul bylo uszczuplenie listy wyboru, gdy skupiamy sie na formula
 ' handling
 
+Public Enum E_SPECIAL_CASE_FOR_DEL_CONF
+    E_SPEC_CASE_TAKE_DEL_CONF_CONNECTED_WITH_MRD = 10
+    E_SPEC_CASE_DO_NOT_TAKE_DEL_CONF_CONNECTED_WITH_MRD = 100
+End Enum
+
+Public Enum E_MATCH
+    E_LIKE
+    E_EQUAL
+End Enum
+
 Public Enum E_IS_JENNY
     E_JENNY_JENNY
     E_JENNY_NO_JENNY
