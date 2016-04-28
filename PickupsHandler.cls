@@ -275,7 +275,7 @@ Public Sub fill_edit_listboxes()
         .ListBoxPUSes.Clear
         .ListBoxPickupDate.Clear
         .ListBoxDelDate.Clear
-        .ListBoxINDX.Clear
+        .ListBoxIndx.Clear
         .ListBoxQty.Clear
         
         str_pn = CStr(msh.Cells(ActiveCell.Row, WizardMain.pn))
@@ -401,15 +401,15 @@ Public Sub listbox_clicked()
     With current_form
     
     
-        For x = 0 To .ListBoxINDX.ListCount - 1
-            .ListBoxINDX.Selected(x) = False
+        For x = 0 To .ListBoxIndx.ListCount - 1
+            .ListBoxIndx.Selected(x) = False
         Next x
     
         For x = 0 To .ListBoxQty.ListCount - 1
             
                 If .ListBoxQty.Selected(x) Then
                            
-                     .ListBoxINDX.Selected(x) = True
+                     .ListBoxIndx.Selected(x) = True
                    
                 End If
             Next x
@@ -431,12 +431,12 @@ Public Sub remove_this_pn()
     
     With current_form
         
-        For x = 0 To .ListBoxINDX.ListCount - 1
+        For x = 0 To .ListBoxIndx.ListCount - 1
             
-            If .ListBoxINDX.Selected(x) = True Then
+            If .ListBoxIndx.Selected(x) = True Then
             
                 Do
-                    If r = .ListBoxINDX.List(x) Then
+                    If r = .ListBoxIndx.List(x) Then
                         ' Set tmp = r
                         ' Set r = r.Offset(1, 0)
                         For y = WizardMain.O_INDX To WizardMain.O_PUS_Number
@@ -451,7 +451,7 @@ Public Sub remove_this_pn()
                 Loop Until r.Row > WizardMain.POLOWA_CAPACITY_ARKUSZA
                 
             
-                .ListBoxINDX.RemoveItem x
+                .ListBoxIndx.RemoveItem x
                 .ListBoxQty.RemoveItem x
             End If
         Next x
@@ -592,7 +592,7 @@ Public Sub pus_listbox_change()
         '.ListBoxPUSes
         '.ListBoxPickupDate
         '.ListBoxDelDate
-        .ListBoxINDX.Clear
+        .ListBoxIndx.Clear
         .ListBoxQty.Clear
         
         
@@ -615,7 +615,7 @@ Public Sub pus_listbox_change()
                     pus_name = .List(x)
                     current_form.ListBoxPickupDate.Selected(x) = True
                     current_form.ListBoxDelDate.Selected(x) = True
-                    uzupelnij_indx_i_qty CStr(pus_name), current_form.ListBoxINDX, current_form.ListBoxQty, psh, ptrn
+                    uzupelnij_indx_i_qty CStr(pus_name), current_form.ListBoxIndx, current_form.ListBoxQty, psh, ptrn
                     Exit For
                 End If
             Next x
@@ -726,8 +726,8 @@ Public Function edit_puses()
                         If CStr(i.Offset(0, WizardMain.O_PUS_Number - WizardMain.O_INDX)) = pus_name Then
                             
                             ' teraz na tym wierszu znajdziemy co mamy updateowac
-                            For x = 0 To .ListBoxINDX.ListCount - 1
-                                If CStr(i) = .ListBoxINDX.List(x) Then
+                            For x = 0 To .ListBoxIndx.ListCount - 1
+                                If CStr(i) = .ListBoxIndx.List(x) Then
                                     i.Offset(0, WizardMain.O_Pick_up_Qty - WizardMain.O_INDX) = Replace(.ListBoxQty.List(x), "Q: ", "")
                                 End If
                             Next x
