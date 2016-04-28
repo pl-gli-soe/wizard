@@ -13,6 +13,24 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+' FORREST SOFTWARE
+' Copyright (c) 2016 Mateusz Forrest Milewski
+'
+' Permission is hereby granted, free of charge,
+' to any person obtaining a copy of this software and associated documentation files (the "Software"),
+' to deal in the Software without restriction, including without limitation the rights to
+' use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+' and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+'
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+' FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+' IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+' WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 Private pickups_handler As PickupsHandler
 
@@ -72,21 +90,21 @@ Private Sub BtnDodajPN_Click()
 
     With DodajPNForm
     
-        If Me.ListBoxPUSes.ListCount > 0 And Me.ListBoxIndx.ListCount > 0 Then
+        If Me.ListBoxPUSes.ListCount > 0 And Me.ListBoxINDX.ListCount > 0 Then
             .TextBoxPUSName = Me.ListBoxPUSes.Value
             .DTPickerPUSDate.Value = Me.ListBoxPickupDate.List(0)
             .DTPickerDelDate.Value = Me.ListBoxDelDate.List(0)
             .TextBoxPtrn.Value = ""
-            .TextBoxBufferForIndx0.Value = Me.ListBoxIndx.List(0)
-            .ListBoxIndx.Clear
+            .TextBoxBufferForIndx0.Value = Me.ListBoxINDX.List(0)
+            .ListBoxINDX.Clear
     
             Set msh = ThisWorkbook.Sheets(MASTER_SHEET_NAME)
             Set r = msh.Cells(2, WizardMain.pn)
             Do
-                If Me.ListBoxIndx.List(0) Like _
+                If Me.ListBoxINDX.List(0) Like _
                     "*" & CStr(msh.Cells(r.Row, WizardMain.duns)) & "," & CStr(msh.Cells(r.Row, WizardMain.fup_code)) Then
                     
-                        .ListBoxIndx.AddItem CStr(msh.Cells(r.Row, WizardMain.pn)) & _
+                        .ListBoxINDX.AddItem CStr(msh.Cells(r.Row, WizardMain.pn)) & _
                             "," & CStr(msh.Cells(r.Row, WizardMain.duns)) & _
                             "," & CStr(msh.Cells(r.Row, WizardMain.fup_code))
                 End If
