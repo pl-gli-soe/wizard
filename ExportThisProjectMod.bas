@@ -18,7 +18,7 @@ Attribute VB_Name = "ExportThisProjectMod"
 ' OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ' working great!
-Global Const REPO_PATH = "C:\WORKSPACE\macros\Wizard\wizard\repo\"
+Global Const REPO_PATH = "C:\WORKSPACE\macros\LESS\wizard\repo\"
 
 Private Sub export_this_project()
     

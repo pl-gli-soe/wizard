@@ -90,21 +90,21 @@ Private Sub BtnDodajPN_Click()
 
     With DodajPNForm
     
-        If Me.ListBoxPUSes.ListCount > 0 And Me.ListBoxIndx.ListCount > 0 Then
+        If Me.ListBoxPUSes.ListCount > 0 And Me.ListBoxINDX.ListCount > 0 Then
             .TextBoxPUSName = Me.ListBoxPUSes.Value
             .DTPickerPUSDate.Value = Me.ListBoxPickupDate.List(0)
             .DTPickerDelDate.Value = Me.ListBoxDelDate.List(0)
             .TextBoxPtrn.Value = ""
-            .TextBoxBufferForIndx0.Value = Me.ListBoxIndx.List(0)
-            .ListBoxIndx.Clear
+            .TextBoxBufferForIndx0.Value = Me.ListBoxINDX.List(0)
+            .ListBoxINDX.Clear
     
             Set msh = ThisWorkbook.Sheets(MASTER_SHEET_NAME)
             Set r = msh.Cells(2, WizardMain.pn)
             Do
-                If Me.ListBoxIndx.List(0) Like _
+                If Me.ListBoxINDX.List(0) Like _
                     "*" & CStr(msh.Cells(r.Row, WizardMain.duns)) & "," & CStr(msh.Cells(r.Row, WizardMain.fup_code)) Then
                     
-                        .ListBoxIndx.AddItem CStr(msh.Cells(r.Row, WizardMain.pn)) & _
+                        .ListBoxINDX.AddItem CStr(msh.Cells(r.Row, WizardMain.pn)) & _
                             "," & CStr(msh.Cells(r.Row, WizardMain.duns)) & _
                             "," & CStr(msh.Cells(r.Row, WizardMain.fup_code))
                 End If

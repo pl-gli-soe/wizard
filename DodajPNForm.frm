@@ -40,9 +40,9 @@ Private Sub ListBoxINDX_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
     Set r = psh.Range("a2")
     
     linia_txtu = ""
-    For x = 0 To Me.ListBoxIndx.ListCount - 1
-        If Me.ListBoxIndx.Selected(x) = True Then
-            linia_txtu = Me.ListBoxIndx.List(x)
+    For x = 0 To Me.ListBoxINDX.ListCount - 1
+        If Me.ListBoxINDX.Selected(x) = True Then
+            linia_txtu = Me.ListBoxINDX.List(x)
             Exit For
         End If
     Next x
@@ -138,7 +138,7 @@ Private Sub TextBoxPtrn_Change()
     Set msh = ThisWorkbook.Sheets(MASTER_SHEET_NAME)
     Set r = msh.Cells(2, WizardMain.pn)
     
-    Me.ListBoxIndx.Clear
+    Me.ListBoxINDX.Clear
     
     Do
         'If Me.ListBoxIndx.ListCount > 0 Then
@@ -151,7 +151,7 @@ Private Sub TextBoxPtrn_Change()
                         
                     If (tmp_txt Like "*" & CStr(Me.TextBoxPtrn) & "*") Or CStr(Me.TextBoxPtrn) = "" Then
                 
-                        Me.ListBoxIndx.AddItem tmp_txt
+                        Me.ListBoxINDX.AddItem tmp_txt
                     End If
             End If
         ' End If

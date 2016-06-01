@@ -23,6 +23,19 @@ Attribute VB_Name = "VersionModule"
 ' dodatkowe warunki przez co mamy dwie formy pracy - design mode i production mode
 ' QT mod - nieco zmieniony layout pivotow - do zaprezentowania.
 ' QT mod 2 - przygotowanie bezposrednio pod 6p zrzut - osobny modul narazie pusty bedzie guzik dodoatkowy w ribbon
+' QT2 bede staral sie napisac w paradygmacie funkcyjnym
+'
+' to jest dalej dev na dzien 30 maja - wez pod uwage ze kopia dev 3.98 z kwietnia nie ma tego komentarza
+' w tej za to czesci planuje rozwoj czesci zwiazanej z QT2 + dodatkowo uzupelnic requesty ze strony userow
+'
+' 3.98 do udostepniania ma dodatkowo nowa funkcjonalnosc zuatomatyzowanego watch window
+' gdzieki temu rozwizaniu mamy na miejscu zawsze dane pod reka z danego rekordu jesli chodzi o arkusz master
+' weic nawet jesli jestesmy bardzo mocno "po prawej" stronie tabeli to i tak mozemy widziec z jakim pnem mamy do czynienia
+' czy jaki mamy PPAP status
+'
+'
+'
+'
 
 ' wizard 3.97 - 2016-03-21 to be shared
 
